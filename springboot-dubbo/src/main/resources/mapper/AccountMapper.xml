@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javadev.dao.AccountDao">
+    <resultMap id="BaseResultMap" type="com.javadev.domain.Account">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="login_pwd" jdbcType="VARCHAR" property="loginPwd"/>
+        <result column="email_address" jdbcType="VARCHAR" property="emailAddress"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="last_login" jdbcType="TIMESTAMP" property="lastLogin"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="creator_id" jdbcType="INTEGER" property="creatorId"/>
+        <result column="create_date" jdbcType="BIGINT" property="createDate"/>
+        <result column="updater_id" jdbcType="INTEGER" property="updaterId"/>
+        <result column="update_date" jdbcType="BIGINT" property="updateDate"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, login_name, login_pwd, email_address, phone_number, last_login, role_id, status,
+        creator_id, create_date, updater_id, update_date
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sys_account
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_sys_account
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.javadev.domain.Account">
+        insert into t_sys_account (id, login_name, login_pwd,
+          email_address, phone_number, last_login,
+          role_id, status, creator_id,
+          create_date, updater_id, update_date
+          )
+        values (#{id,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR},
+          #{emailAddress,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{lastLogin,jdbcType=TIMESTAMP},
+          #{roleId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER},
+          #{createDate,jdbcType=BIGINT}, #{updaterId,jdbcType=INTEGER}, #{updateDate,jdbcType=BIGINT}
+          )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.javadev.domain.Account">
+        insert into t_sys_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="loginPwd != null">
+                login_pwd,
+            </if>
+            <if test="emailAddress != null">
+                email_address,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="lastLogin != null">
+                last_login,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="creatorId != null">
+                creator_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updaterId != null">
+                updater_id,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPwd != null">
+                #{loginPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="emailAddress != null">
+                #{emailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLogin != null">
+                #{lastLogin,jdbcType=TIMESTAMP},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=BIGINT},
+            </if>
+            <if test="updaterId != null">
+                #{updaterId,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.javadev.domain.Account">
+        update t_sys_account
+        <set>
+            <if test="loginName != null">
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPwd != null">
+                login_pwd = #{loginPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="emailAddress != null">
+                email_address = #{emailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLogin != null">
+                last_login = #{lastLogin,jdbcType=TIMESTAMP},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=BIGINT},
+            </if>
+            <if test="updaterId != null">
+                updater_id = #{updaterId,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.javadev.domain.Account">
+        update t_sys_account
+        set login_name = #{loginName,jdbcType=VARCHAR},
+          login_pwd = #{loginPwd,jdbcType=VARCHAR},
+          email_address = #{emailAddress,jdbcType=VARCHAR},
+          phone_number = #{phoneNumber,jdbcType=VARCHAR},
+          last_login = #{lastLogin,jdbcType=TIMESTAMP},
+          role_id = #{roleId,jdbcType=VARCHAR},
+          status = #{status,jdbcType=CHAR},
+          creator_id = #{creatorId,jdbcType=INTEGER},
+          create_date = #{createDate,jdbcType=BIGINT},
+          updater_id = #{updaterId,jdbcType=INTEGER},
+          update_date = #{updateDate,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--
+      /***********************************************************************
+      * DON'T Modify the codes above unless you know what you are doing!!!  *
+      * Put your own sql beblow.                                            *
+      ***********************************************************************/
+     -->
+
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javadev.dao.RoleDao">
+    <resultMap id="BaseResultMap" type="com.javadev.domain.Role">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="status" jdbcType="CHAR" property="status" />
+        <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+        <result column="create_date" jdbcType="BIGINT" property="createDate" />
+        <result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+        <result column="update_date" jdbcType="BIGINT" property="updateDate" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, role_name, remark, status, creator_id, create_date, updater_id, update_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_sys_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_sys_role
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.javadev.domain.Role">
+        insert into t_sys_role (id, role_name, remark,
+        status, creator_id, create_date,
+        updater_id, update_date)
+        values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+        #{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, #{createDate,jdbcType=BIGINT},
+        #{updaterId,jdbcType=INTEGER}, #{updateDate,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.javadev.domain.Role">
+        insert into t_sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="creatorId != null">
+                creator_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updaterId != null">
+                updater_id,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=BIGINT},
+            </if>
+            <if test="updaterId != null">
+                #{updaterId,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.javadev.domain.Role">
+        update t_sys_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=BIGINT},
+            </if>
+            <if test="updaterId != null">
+                updater_id = #{updaterId,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.javadev.domain.Role">
+    update t_sys_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=BIGINT},
+      updater_id = #{updaterId,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--
+      /***********************************************************************
+      * DON'T Modify the codes above unless you know what you are doing!!!  *
+      * Put your own sql beblow.                                            *
+      ***********************************************************************/
+     -->
+
+    <!--新增角色并返回id-->
+    <insert id="insertRoleReturnId" parameterType="com.javadev.domain.Role" useGeneratedKeys="true" keyProperty="id">
+        insert into t_sys_role (id, role_name, remark,
+        status, creator_id, create_date,
+        updater_id, update_date)
+        values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+        #{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, #{createDate,jdbcType=BIGINT},
+        #{updaterId,jdbcType=INTEGER}, #{updateDate,jdbcType=BIGINT})
+    </insert>
+    
+    <select id="selectRoleListByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+          <include refid="Base_Column_List" />
+        FROM t_sys_role
+        WHERE 1 = 1
+        <if test="roleName != '' and roleName != null">
+            AND role_name LIKE CONCAT('%',#{roleName},'%' )
+        </if>
+        ORDER BY create_date DESC
+    </select>
+
+    <select id="checkRoleNameExist" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_sys_role
+        WHERE role_name = #{roleName}
+        <if test="id != '' and id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+</mapper>

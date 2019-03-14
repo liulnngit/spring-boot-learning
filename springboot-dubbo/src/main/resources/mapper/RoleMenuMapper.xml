@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javadev.dao.RoleMenuDao">
+    <resultMap id="BaseResultMap" type="com.javadev.domain.RoleMenu">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="menu_id" jdbcType="INTEGER" property="menuId"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="creator_id" jdbcType="INTEGER" property="creatorId"/>
+        <result column="create_date" jdbcType="BIGINT" property="createDate"/>
+        <result column="updater_id" jdbcType="INTEGER" property="updaterId"/>
+        <result column="update_date" jdbcType="BIGINT" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, role_id, menu_id, status, creator_id, create_date, updater_id, update_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sys_role_menu
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_sys_role_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.javadev.domain.RoleMenu">
+    insert into t_sys_role_menu (id, role_id, menu_id, 
+      status, creator_id, create_date, 
+      updater_id, update_date)
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, #{createDate,jdbcType=BIGINT}, 
+      #{updaterId,jdbcType=INTEGER}, #{updateDate,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.javadev.domain.RoleMenu">
+        insert into t_sys_role_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="menuId != null">
+                menu_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="creatorId != null">
+                creator_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updaterId != null">
+                updater_id,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="menuId != null">
+                #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=BIGINT},
+            </if>
+            <if test="updaterId != null">
+                #{updaterId,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.javadev.domain.RoleMenu">
+        update t_sys_role_menu
+        <set>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="menuId != null">
+                menu_id = #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=BIGINT},
+            </if>
+            <if test="updaterId != null">
+                updater_id = #{updaterId,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.javadev.domain.RoleMenu">
+    update t_sys_role_menu
+    set role_id = #{roleId,jdbcType=INTEGER},
+      menu_id = #{menuId,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=BIGINT},
+      updater_id = #{updaterId,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--
+      /***********************************************************************
+      * DON'T Modify the codes above unless you know what you are doing!!!  *
+      * Put your own sql beblow.                                            *
+      ***********************************************************************/
+     -->
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into t_sys_role_menu (id, role_id, menu_id,
+        status, creator_id, create_date,
+        updater_id, update_date)
+        values
+        <foreach collection="list" item="roleMenus" separator=",">
+            (#{roleMenus.id,jdbcType=INTEGER}, #{roleMenus.roleId,jdbcType=INTEGER}, #{roleMenus.menuId,jdbcType=INTEGER},
+            #{roleMenus.status,jdbcType=CHAR}, #{roleMenus.creatorId,jdbcType=INTEGER}, #{roleMenus.createDate,jdbcType=BIGINT},
+            #{roleMenus.updaterId,jdbcType=INTEGER}, #{roleMenus.updateDate,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+
+    <select id="selectRoleMenuListByRoleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List" />
+        from t_sys_role_menu
+        where role_id = #{roleId} and status = 'A'
+    </select>
+
+</mapper>
